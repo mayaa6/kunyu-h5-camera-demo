@@ -29,9 +29,10 @@ layout: default
         showMessage("Resolution: " + res + ", Format: " + fmt);
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
-            plus.io.resolveLocalFileSystemURL( path, function(entry) {
+            plus.io.resolveLocalFileSystemURL(path, function(entry) {
                 showMessage(111)
-                showMessage(JSON.stringify(entry))
+                showMessage(entry.toLocalURL())
+                showMessage(entry.name,divid)
             }, function(error) {
                 showMessage(222)
                 showMessage(JSON.stringify(error))
