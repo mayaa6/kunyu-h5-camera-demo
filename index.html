@@ -4,9 +4,19 @@
 
 layout: default
 ---
+<div>
+    <div id="message">
+
+    </div>
+</div>
 <script>
     document.addEventListener("plusready", onPlusReady, false);
+    function showMessage(msg) {
+        var messageBlock = document.getElementById("message");
+        messageBlock.innerText = msg
+        return
+    }
     function onPlusReady() {
-        console.log("plusready");
+        showMessage("plusready");
     }
 </script>
