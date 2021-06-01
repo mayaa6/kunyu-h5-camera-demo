@@ -5,10 +5,10 @@
 layout: default
 ---
 <div>
+    <button onclick="captureImage()">拍照</button>
     <div id="message">
 
     </div>
-    <button onclick="captureImage()">拍照</button>
 </div>
 <script>
     document.addEventListener("plusready", onPlusReady, false);
@@ -30,8 +30,10 @@ layout: default
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
             plus.io.resolveLocalFileSystemURL( path, function(entry) {
+                showMessage(111)
                 showMessage(JSON.stringify(entry))
             }, function(error) {
+                showMessage(222)
                 showMessage(JSON.stringify(error))
             } );
         },
