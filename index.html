@@ -29,24 +29,39 @@ layout: default
         showMessage("Resolution: " + res + ", Format: " + fmt);
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
-            plus.io.resolveLocalFileSystemURL(path, function(entry) {
+            plus.io.resolveLocalFileSystemURL(path, function (entry) {
                 showMessage(entry.toLocalURL())
-                entry.file(function(file) {
+                entry.file(function (file) {
                     var fileReader = new plus.io.FileReader();
                     showMessage("getFile:" + JSON.stringify(file))
-                    fileReader.onloadend = function(evt) {
+                    fileReader.onloadend = function (evt) {
                         showMessage(evt.target.result)
                     }
-                    fileReader.readAsText(file, 'utf-8');
+                    fileReader.readAsDataURL(file, 'utf-8');
                 })
-            }, function(error) {
+            }, function (error) {
                 showMessage(JSON.stringify(error))
-            } );
+            });
         },
             function (error) {
                 showMessage("Capture image failed: " + error.message);
             },
             { resolution: res, format: fmt }
         );
+    }
+
+    function compressImage(url, filename, divid) {
+        var name = "_doc/upload/" + divid + "-" + filename;//_doc/upload/F_ZDDZZ-1467602809090.jpg
+        plus.zip.compressImage({
+            src: url,//src: (String 类型 )压缩转换原始图片的路径
+            dst: name,//压缩转换目标图片的路径
+            quality: 20,//quality: (Number 类型 )压缩图片的质量.取值范围为1-100
+            overwrite: true//overwrite: (Boolean 类型 )覆盖生成新文件
+        },
+            function (event) {
+                saveimage(event.target, divid, filename, path);
+            }, function (error) {
+                plus.nativeUI.toast("压缩图片失败，请稍候再试");
+            });
     }
 </script>
