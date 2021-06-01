@@ -34,10 +34,10 @@ layout: default
                 entry.file(function(file) {
                     var fileReader = new plus.io.FileReader();
                     showMessage("getFile:" + JSON.stringify(file))
-                    fileReader.readAsText(file, 'utf-8');
                     fileReader.onloadend = function(evt) {
                         showMessage(evt.target.result)
                     }
+                    fileReader.readAsText(file, 'utf-8');
                 })
             }, function(error) {
                 showMessage(JSON.stringify(error))
