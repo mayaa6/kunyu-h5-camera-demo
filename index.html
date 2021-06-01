@@ -14,7 +14,9 @@ layout: default
     document.addEventListener("plusready", onPlusReady, false);
     function showMessage(msg) {
         var messageBlock = document.getElementById("message");
-        messageBlock.innerText = msg
+        var par = document.createElement("p")
+        par.innerText = msg
+        messageBlock.appendChild(par)
         return
     }
     function onPlusReady() {
@@ -24,9 +26,14 @@ layout: default
         var cmr = plus.camera.getCamera();
         var res = cmr.supportedImageResolutions[0];
         var fmt = cmr.supportedImageFormats[0];
-        console.log("Resolution: " + res + ", Format: " + fmt);
+        showMessage("Resolution: " + res + ", Format: " + fmt);
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
+            plus.io.resolveLocalFileSystemURL( path, function(entry) {
+                showMessage(JSON.stringify(entry))
+            }, function(error) {
+                showMessage(JSON.stringify(error))
+            } );
         },
             function (error) {
                 showMessage("Capture image failed: " + error.message);
