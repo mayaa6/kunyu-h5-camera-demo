@@ -30,11 +30,16 @@ layout: default
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
             plus.io.resolveLocalFileSystemURL(path, function(entry) {
-                showMessage(111)
                 showMessage(entry.toLocalURL())
-                showMessage(entry.name,divid)
+                entry.file(function(file) {
+                    var fileReader = new plus.io.FileReader();
+                    showMessage("getFile:" + JSON.stringify(file))
+                    fileReader.readAsText(file, 'utf-8');
+                    fileReader.onloadend = function(evt) {
+                        showMessage(evt.target.result)
+                    }
+                })
             }, function(error) {
-                showMessage(222)
                 showMessage(JSON.stringify(error))
             } );
         },
