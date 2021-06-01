@@ -8,6 +8,7 @@ layout: default
     <div id="message">
 
     </div>
+    <button onclick="captureImage()">拍照</button>
 </div>
 <script>
     document.addEventListener("plusready", onPlusReady, false);
@@ -18,5 +19,19 @@ layout: default
     }
     function onPlusReady() {
         showMessage("plusready");
+    }
+    function captureImage() {
+        var cmr = plus.camera.getCamera();
+        var res = cmr.supportedImageResolutions[0];
+        var fmt = cmr.supportedImageFormats[0];
+        console.log("Resolution: " + res + ", Format: " + fmt);
+        cmr.captureImage(function (path) {
+            showMessage("Capture image success: " + path);
+        },
+            function (error) {
+                showMessage("Capture image failed: " + error.message);
+            },
+            { resolution: res, format: fmt }
+        );
     }
 </script>
