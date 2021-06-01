@@ -4,13 +4,14 @@
 
 layout: default
 ---
-<div>
+<div class="container">
     <button onclick="captureImage()">拍照</button>
     <div id="message">
 
     </div>
 </div>
 <script>
+    showMessage("238749328759834275902934759832749587234987592394875989027349579324087598238947598137459073249057932408759023475093234790573240957923048")
     document.addEventListener("plusready", onPlusReady, false);
     function showMessage(msg) {
         var messageBlock = document.getElementById("message");
