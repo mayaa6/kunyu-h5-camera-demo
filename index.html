@@ -11,7 +11,6 @@ layout: default
     </div>
 </div>
 <script>
-    showMessage("238749328759834275902934759832749587234987592394875989027349579324087598238947598137459073249057932408759023475093234790573240957923048")
     document.addEventListener("plusready", onPlusReady, false);
     function showMessage(msg) {
         var messageBlock = document.getElementById("message");
@@ -30,15 +29,18 @@ layout: default
         showMessage("Resolution: " + res + ", Format: " + fmt);
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
+            compressImage(path, "_www/123.jpg")
             plus.io.resolveLocalFileSystemURL(path, function (entry) {
                 showMessage(entry.toLocalURL())
                 entry.file(function (file) {
                     var fileReader = new plus.io.FileReader();
                     showMessage("getFile:" + JSON.stringify(file))
+                    fileReader.readAsDataURL(file);
                     fileReader.onloadend = function (evt) {
+                        showMessage(2222)
                         showMessage(evt.target.result)
                     }
-                    fileReader.readAsDataURL(file, 'utf-8');
+                    showMessage(1111)
                 })
             }, function (error) {
                 showMessage(JSON.stringify(error))
@@ -51,16 +53,15 @@ layout: default
         );
     }
 
-    function compressImage(url, filename, divid) {
-        var name = "_doc/upload/" + divid + "-" + filename;//_doc/upload/F_ZDDZZ-1467602809090.jpg
+    function compressImage(src, dest) {
         plus.zip.compressImage({
-            src: url,//src: (String 类型 )压缩转换原始图片的路径
-            dst: name,//压缩转换目标图片的路径
+            src: src,//src: (String 类型 )压缩转换原始图片的路径
+            dst: dest,//压缩转换目标图片的路径
             quality: 20,//quality: (Number 类型 )压缩图片的质量.取值范围为1-100
             overwrite: true//overwrite: (Boolean 类型 )覆盖生成新文件
         },
             function (event) {
-                saveimage(event.target, divid, filename, path);
+                showMessage(event)
             }, function (error) {
                 plus.nativeUI.toast("压缩图片失败，请稍候再试");
             });
