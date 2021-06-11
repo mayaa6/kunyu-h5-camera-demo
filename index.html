@@ -26,22 +26,22 @@ layout: default
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
             compressImage(path, "_www/123.jpg")
-            plus.io.resolveLocalFileSystemURL(path, function (entry) {
-                showMessage(entry.toLocalURL())
-                entry.file(function (file) {
-                    var fileReader = new plus.io.FileReader();
-                    showMessage("getFile:" + JSON.stringify(file))
-                    showMessage("getSize:" + file.size)
-                    fileReader.readAsDataURL(file);
-                    fileReader.onloadend = function (evt) {
-                        showMessage(2222)
-                        showMessage(evt.target.result)
-                    }
-                    showMessage(1111)
-                })
-            }, function (error) {
-                showMessage(JSON.stringify(error))
-            });
+            // plus.io.resolveLocalFileSystemURL(path, function (entry) {
+            //     showMessage(entry.toLocalURL())
+            //     entry.file(function (file) {
+            //         var fileReader = new plus.io.FileReader();
+            //         showMessage("getFile:" + JSON.stringify(file))
+            //         showMessage("getSize:" + file.size)
+            //         fileReader.readAsDataURL(file);
+            //         fileReader.onloadend = function (evt) {
+            //             showMessage(2222)
+            //             showMessage(evt.target.result)
+            //         }
+            //         showMessage(1111)
+            //     })
+            // }, function (error) {
+            //     showMessage(JSON.stringify(error))
+            // });
         },
             function (error) {
                 showMessage("Capture image failed: " + error.message);
