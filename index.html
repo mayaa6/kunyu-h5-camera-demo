@@ -25,23 +25,24 @@ layout: default
         showMessage("Resolution: " + res + ", Format: " + fmt);
         cmr.captureImage(function (path) {
             showMessage("Capture image success: " + path);
-            compressImage(path, "_www/123.jpg")
-            // plus.io.resolveLocalFileSystemURL(path, function (entry) {
-            //     showMessage(entry.toLocalURL())
-            //     entry.file(function (file) {
-            //         var fileReader = new plus.io.FileReader();
-            //         showMessage("getFile:" + JSON.stringify(file))
-            //         showMessage("getSize:" + file.size)
-            //         fileReader.readAsDataURL(file);
-            //         fileReader.onloadend = function (evt) {
-            //             showMessage(2222)
-            //             showMessage(evt.target.result)
-            //         }
-            //         showMessage(1111)
-            //     })
-            // }, function (error) {
-            //     showMessage(JSON.stringify(error))
-            // });
+            compressImage(path, "_www/123.jpg", function (compressed_path) {
+                plus.io.resolveLocalFileSystemURL(compressed_path, function (entry) {
+                    showMessage(entry.toLocalURL())
+                    entry.file(function (file) {
+                        var fileReader = new plus.io.FileReader();
+                        showMessage("getFile:" + JSON.stringify(file))
+                        showMessage("getSize:" + file.size)
+                        fileReader.readAsDataURL(file);
+                        fileReader.onloadend = function (evt) {
+                            showMessage(2222)
+                            showMessage(evt.target.result)
+                        }
+                        showMessage(1111)
+                    })
+                }, function (error) {
+                    showMessage(JSON.stringify(error))
+                });
+            })
         },
             function (error) {
                 showMessage("Capture image failed: " + error.message);
@@ -50,7 +51,7 @@ layout: default
         );
     }
 
-    function compressImage(src, dest) {
+    function compressImage(src, dest, success, failure) {
         plus.zip.compressImage({
             src: src,//src: (String 类型 )压缩转换原始图片的路径
             dst: dest,//压缩转换目标图片的路径
@@ -60,9 +61,11 @@ layout: default
             function (event) {
                 showMessage("compress is ok")
                 showMessage(JSON.stringify(event))
+                if (success) success()
             }, function (error) {
                 showMessage("compress is failed")
                 plus.nativeUI.toast("压缩图片失败，请稍候再试");
+                if (failure) failure()
             });
     }
 </script>
