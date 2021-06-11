@@ -5,7 +5,6 @@
 layout: default
 ---
 <div class="container">
-    <p>哈哈哈</p>
     <button onclick="captureImage()">拍照</button>
     <div id="message">
     </div>
@@ -61,8 +60,10 @@ layout: default
             overwrite: true//overwrite: (Boolean 类型 )覆盖生成新文件
         },
             function (event) {
+                console.log("compress is ok")
                 showMessage(event)
             }, function (error) {
+                console.log("compress is failed")
                 plus.nativeUI.toast("压缩图片失败，请稍候再试");
             });
     }
