@@ -58,10 +58,10 @@ layout: default
             overwrite: true//overwrite: (Boolean 类型 )覆盖生成新文件
         },
             function (event) {
-                console.log("compress is ok")
-                showMessage(event)
+                showMessage("compress is ok")
+                showMessage(JSON.stringify(event))
             }, function (error) {
-                console.log("compress is failed")
+                showMessage("compress is failed")
                 plus.nativeUI.toast("压缩图片失败，请稍候再试");
             });
     }
