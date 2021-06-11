@@ -5,6 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <title>Webview Example</title>
+    <style>
+        .container {
+            width: 100%;
+            overflow: hidden;
+        }
+        #message {
+            overflow-wrap: anywhere;
+            word-break: break-all;
+            word-wrap: normal;
+        }
+    </style>
     <script type="text/javascript">
         // H5 plus事件处理
         function plusReady() {
@@ -25,8 +36,10 @@
 </head>
 
 <body>
-    创建新的Webview窗口<br />
-    <button onclick="create()">Create</button>
+    <div class="container">
+        <p>创建新的Webview窗口</p>
+        <button onclick="create()">Create</button>
+    </div>
 </body>
 
 </html>
