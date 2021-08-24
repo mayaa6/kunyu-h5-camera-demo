@@ -3,6 +3,7 @@ layout: default
 ---
 <div class="container">
     <button onclick="captureImage()">拍照</button>
+    <button onclick="checkPermission()">检查权限</button>
     <div id="message">
     </div>
 </div>
@@ -17,6 +18,24 @@ layout: default
     }
     function onPlusReady() {
         showMessage("plusready");
+    }
+    function checkPermission() {
+        plus.android.requestPermissions(['android.permission.CAMERA'], function (e) {
+            if (e.deniedAlways.length > 0) {	//权限被永久拒绝
+                // 弹出提示框解释为何需要定位权限，引导用户打开设置页面开启
+                showMessage('Always Denied!!! ' + e.deniedAlways.toString());
+            }
+            if (e.deniedPresent.length > 0) {	//权限被临时拒绝
+                // 弹出提示框解释为何需要定位权限，可再次调用plus.android.requestPermissions申请权限
+                showMessage('Present Denied!!! ' + e.deniedPresent.toString());
+            }
+            if (e.granted.length > 0) {	//权限被允许
+                //调用依赖获取定位权限的代码
+                showMessage('Granted!!! ' + e.granted.toString());
+            }
+        }, function (e) {
+            showMessage('Request Permissions error:' + JSON.stringify(e));
+        });
     }
     function captureImage() {
         var cmr = plus.camera.getCamera();
