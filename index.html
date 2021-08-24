@@ -20,7 +20,7 @@ layout: default
         showMessage("plusready");
     }
     function checkPermission() {
-        plus.android.requestPermissions(['android.permission.CAMERA'], function (e) {
+        plus.android.requestPermissions(['android.permission.READ_EXTERNAL_STORAGE'], function (e) {
             if (e.deniedAlways.length > 0) {	//权限被永久拒绝
                 // 弹出提示框解释为何需要定位权限，引导用户打开设置页面开启
                 showMessage('Always Denied!!! ' + e.deniedAlways.toString());
