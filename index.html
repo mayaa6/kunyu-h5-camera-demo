@@ -53,13 +53,11 @@ layout: default
                         showMessage("getSize:" + file.size)
                         fileReader.readAsDataURL(file);
                         fileReader.onloadend = function (evt) {
-                            showMessage(2222)
                             showMessage(evt.target.result)
                         }
-                        showMessage(1111)
                     })
                 }, function (error) {
-                    showMessage(JSON.stringify(error))
+                    showMessage("resolveLocalFileSystemURL Error:" + JSON.stringify(error))
                 });
             })
         },
